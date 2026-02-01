@@ -36,16 +36,30 @@ export function useChatSocket(
           { roomId, userId },
         );
       }
+      if (chatId) {
+        socket.emit("joinChat", { chatId });
+        console.log("[SOCKET] joinChat emitido", { chatId });
+      } else {
+        console.warn("[SOCKET] joinChat NO emitido: chatId no definido", {
+          chatId,
+        });
+      }
     });
     socket.on("disconnect", () => {
       console.log("[SOCKET] Disconnected");
     });
 
-    // Escuchar nuevos mensajes
-    socket.on("chat:new-message", (msg) => {
-      console.log("[SOCKET] chat:new-message recibido", msg);
-      onMessage(msg);
-    });
+    // Escuchar nuevos mensajes solo si chatId está definido
+    if (chatId) {
+      socket.on("chat:new-message", (msg) => {
+        console.log("[SOCKET] chat:new-message recibido", msg);
+        onMessage(msg);
+      });
+    } else {
+      console.warn(
+        "[SOCKET] chat:new-message: chatId no definido, no se escuchará el evento",
+      );
+    }
 
     // Escuchar presencia en tiempo real
     socket.on("room:presence", (data) => {

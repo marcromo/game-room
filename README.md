@@ -2,6 +2,35 @@
 
 Frontend moderno para la API de Game Room, construido con Next.js 14, TypeScript y Tailwind CSS.
 
+## 🚀 Deploy en Vercel
+
+1. Sube tu código a GitHub.
+2. Ve a [vercel.com](https://vercel.com/) y crea una cuenta/inicia sesión.
+3. Haz clic en "New Project" y conecta tu repositorio.
+4. Selecciona el proyecto y configura las variables de entorno:
+   - `NEXT_PUBLIC_API_URL_PROD=https://game-room-api-production.up.railway.app/api`
+   - (Opcional) `NEXT_PUBLIC_API_URL=http://localhost:3001/api` para desarrollo local
+5. Vercel detectará Next.js y hará el deploy automáticamente.
+
+### Variables de entorno en Vercel
+
+En Vercel, ve a Settings > Environment Variables y añade:
+
+- `NEXT_PUBLIC_API_URL_PROD` (URL de la API en producción)
+- (Opcional) `NEXT_PUBLIC_API_URL` (URL local para desarrollo)
+
+### Configuración automática
+
+El frontend selecciona la API según el entorno:
+
+- En local: usa `NEXT_PUBLIC_API_URL`
+- En producción (Vercel): usa `NEXT_PUBLIC_API_URL_PROD`
+
+### Notas
+
+- Si usas sockets, asegúrate de que la URL del socket apunte a la API correcta en producción.
+- Puedes modificar el código para usar la variable de entorno adecuada según el entorno.
+
 ## 🚀 Características
 
 - ⚡ Next.js 14 con App Router

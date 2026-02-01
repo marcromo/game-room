@@ -207,17 +207,27 @@ export default function RoomDetailPage({ params }: { params: { id: string } }) {
                   <div className="text-gray-400">No participants</div>
                 )}
               {!loadingParticipants && participants.length > 0 && (
-                <ParticipantsList
-                  participants={participants.map((p) => ({
-                    ...p,
-                    online: !!p.online,
-                  }))}
-                  currentUserId={
+                <>
+                  {console.log(
+                    "[RENDER] currentUserId:",
                     typeof window !== "undefined"
-                      ? localStorage.getItem("userId") || ""
-                      : ""
-                  }
-                />
+                      ? localStorage.getItem("userId")
+                      : "",
+                    "participants:",
+                    participants,
+                  )}
+                  <ParticipantsList
+                    participants={participants.map((p) => ({
+                      ...p,
+                      online: !!p.online,
+                    }))}
+                    currentUserId={
+                      typeof window !== "undefined"
+                        ? localStorage.getItem("userId") || ""
+                        : ""
+                    }
+                  />
+                </>
               )}
             </div>
             {room.chat && (
